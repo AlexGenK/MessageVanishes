@@ -23,3 +23,8 @@ post '/' do
   @m.save
   erb :create
 end
+
+get '/message/:link' do
+  @m=Message.where(link: params[:link]).first
+  erb :show
+end
