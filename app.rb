@@ -14,12 +14,12 @@ end
 
 get '/' do
   @m=Message.new
-  erb :message
+  erb :new
 end
 
 post '/' do
   @m=Message.new(params[:message])
   @m.link=generate_link(11)
   @m.save
-  erb :add
+  erb :create
 end
