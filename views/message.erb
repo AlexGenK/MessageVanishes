@@ -1,1 +1,18 @@
-<h1>Hello!!!</h1>
+<h1>Enter your message</h1>
+
+<form action="/" method="POST">
+	<label for="message">Message</label><br>
+	<textarea id="message" rows="5" name="message[body]"></textarea><br>
+	<br>
+	<label for="password">Password</label><br>
+	<input type="text" id="password"><br>
+	<br>
+	<label for="destroy">Destroy by</label><br>
+	<input type="text" id="destroy" name="message[count]">
+	<select name="message[method]">
+		<option value="hours">hours</option>
+		<option value="visits">visits</option>
+	<select><br>
+	<br>
+	<input type="submit" value="Submit">
+</form>
