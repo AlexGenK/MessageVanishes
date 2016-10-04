@@ -1,2 +1,10 @@
 <h1>Message:</h1>
-<%= @m.body %>
+<textarea id="aes_message" rows="5"><%= @m.body %></textarea><br>
+<br>
+<label for="password">Password</label><br>
+<input type="text" id="password"><br>
+<br>
+<input type="button" value="Decrypt" onclick="decrypt_message('#aes_message', '#password', '#message')"><br>
+<br>
+<label for="message">Message</label><br>
+<textarea id="message" rows="5"></textarea><br>

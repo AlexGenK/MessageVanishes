@@ -2,7 +2,7 @@
 
 <form action="/" method="POST">
 	<label for="message">Message</label><br>
-	<textarea id="message" rows="5" name="message[body]"></textarea><br>
+	<textarea id="message" rows="5"></textarea><br>
 	<br>
 	<label for="password">Password</label><br>
 	<input type="text" id="password"><br>
@@ -14,5 +14,8 @@
 		<option value="visits">visits</option>
 	</select><br>
 	<br>
+	<textarea id="aes_message" rows="5" name="message[body]"></textarea><br>
+	<br>
+	<input type="button" value="Encrypt" onclick="encrypt_message('#message', '#password', '#aes_message')">
 	<input type="submit" value="Submit">
 </form>

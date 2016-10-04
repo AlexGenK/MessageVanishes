@@ -3,6 +3,7 @@ require 'sinatra/reloader'
 require 'sinatra/activerecord'
 require "securerandom"
 
+set :server, 'webrick'
 set :database, "sqlite3:vanishes.db"
 
 class Message < ActiveRecord::Base
