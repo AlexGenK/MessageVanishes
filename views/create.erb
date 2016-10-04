@@ -1,2 +1,3 @@
 <h1>Message already added</h1>
-Your link is <a href="<%= url("/message/#{@m.link}") %>"><%= url("/message/#{@m.link}") %></a>
+<p>Your link is <a href="<%= url("/message/#{@m.link}") %>"><%= url("/message/#{@m.link}") %></a></p>
+<p>It will be destroy after <%= @m.count %> <%= @m.method %>.</p>

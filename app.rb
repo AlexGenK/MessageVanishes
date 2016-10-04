@@ -27,5 +27,20 @@ end
 
 get '/message/:link' do
   @m=Message.where(link: params[:link]).first
-  erb :show
+  unless @m
+    @info="Message not found."
+    erb :info
+  else 
+    if @m.method=="visits"
+      if @m.count == 0
+        @m.destroy
+        @info="Message destroy."
+        erb :info
+      else
+        @m.count-=1
+        @m.save
+        erb :show
+      end
+    end
+  end
 end
