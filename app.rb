@@ -41,6 +41,14 @@ get '/message/:link' do
         @m.save
         erb :show
       end
+    else
+        if Time.now.utc > @m.created_at+360*@m.count
+          @m.destroy
+          @info="Message destroy."
+          erb :info
+        else
+          erb :show
+        end
     end
   end
 end
