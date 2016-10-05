@@ -7,7 +7,13 @@ set :server, 'webrick'
 set :database, "sqlite3:vanishes.db"
 
 class Message < ActiveRecord::Base
+
+  validates_presence_of :link, :method, :count
+  validates_numericality_of :count, less_than: 10000, message: "is too big" 
+  validates_numericality_of :count, greater_than: 0, message: "is too small"
+
   after_initialize :set_default_values
+
   def set_default_values
     self.count||=1
     self.method||="hours"
@@ -32,8 +38,12 @@ end
 post '/' do
   @m=Message.new(params[:message])
   @m.link=generate_link(11)
-  @m.save
-  erb :create
+  if @m.save
+    erb :create
+  else
+    @error=@m.errors.full_messages.first
+    erb :new
+  end
 end
 
 get '/message/:link' do
