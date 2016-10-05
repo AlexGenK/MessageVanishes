@@ -7,6 +7,11 @@ set :server, 'webrick'
 set :database, "sqlite3:vanishes.db"
 
 class Message < ActiveRecord::Base
+  after_initialize :set_default_values
+  def set_default_values
+    self.count||=1
+    self.method||="hours"
+  end
 end
 
 def destroy_with_info(m)

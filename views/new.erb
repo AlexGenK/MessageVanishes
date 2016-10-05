@@ -2,16 +2,16 @@
 
 <form action="/" method="POST">
 	<label for="message">Message</label><br>
-	<textarea id="message" rows="5"></textarea><br>
+	<textarea id="message" rows="5"><%= @m.body %></textarea><br>
 	<br>
 	<label for="password">Password</label><br>
 	<input type="text" id="password"><br>
 	<br>
 	<label for="destroy">Destroy after</label><br>
-	<input type="text" id="destroy" name="message[count]">
+	<input type="text" id="destroy" name="message[count]" value="<%= @m.count %>">
 	<select name="message[method]">
-		<option value="hours">hours</option>
-		<option value="visits">visits</option>
+		<option value="hours" <%= @m.method=="hours" ? "selected" : "" %>>hours</option>
+		<option value="visits" <%= @m.method=="visits" ? "selected" : "" %>>visits</option>
 	</select><br>
 	<textarea id="aes_message" name="message[body]" hidden="true"></textarea>
 	<br>
