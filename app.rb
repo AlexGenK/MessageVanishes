@@ -9,6 +9,12 @@ set :database, "sqlite3:vanishes.db"
 class Message < ActiveRecord::Base
 end
 
+def destroy_with_info(m)
+  m.destroy
+  @info="Message destroy."
+  erb :info
+end
+
 def generate_link(size)
   SecureRandom.urlsafe_base64(size, false)
 end
@@ -33,9 +39,7 @@ get '/message/:link' do
   else 
     if @m.method=="visits"
       if @m.count == 0
-        @m.destroy
-        @info="Message destroy."
-        erb :info
+        destroy_with_info(@m)
       else
         @m.count-=1
         @m.save
@@ -43,9 +47,7 @@ get '/message/:link' do
       end
     else
         if Time.now.utc > @m.created_at+360*@m.count
-          @m.destroy
-          @info="Message destroy."
-          erb :info
+          destroy_with_info(@m)
         else
           erb :show
         end
