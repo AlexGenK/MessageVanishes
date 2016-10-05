@@ -5,7 +5,8 @@ function encrypt_message(message, password, target) {
 }
 
 function decrypt_message(message, password, target) {
+	var d_m=CryptoJS.AES.decrypt($(message).val(),$(password).val()).toString(CryptoJS.enc.Utf8);
 	$(target).val(
-		CryptoJS.AES.decrypt($(message).val(),$(password).val()).toString(CryptoJS.enc.Utf8) ? CryptoJS.AES.decrypt($(message).val(),$(password).val()).toString(CryptoJS.enc.Utf8) : "!!! Wrong password !!!"
+		 d_m ? d_m : "!!! Wrong password !!!"
 		);
 }
