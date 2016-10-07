@@ -11,7 +11,8 @@
 	<body>
 		<div class="container">
 		    <%if @error && @error.length > 0 then %>
-	        	<p><%= @error %></p>
+		    	<br>
+	        	<p><strong style="color: red"><%= @error %></strong></p>
 	        	<% @error=nil %>
 	      	<% end %>
 			<%= yield %>
