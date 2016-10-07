@@ -3,8 +3,14 @@ require 'sinatra/reloader'
 require 'sinatra/activerecord'
 require "securerandom"
 
-set :server, 'webrick'
-set :database, "sqlite3:vanishes.db"
+configure :development do
+  set :database, "sqlite3:vanishes.db"
+  set :server, 'webrick'
+end
+
+configure :production do
+  set :database, "postgres:vanishes.db"
+end
 
 class Message < ActiveRecord::Base
   validates_presence_of :link, :method, :count
