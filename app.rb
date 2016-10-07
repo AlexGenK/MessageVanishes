@@ -1,13 +1,10 @@
 require 'sinatra'
 require "securerandom"
 require 'active_record'
-require "resolv-replace.rb"
+require 'sinatra/activerecord'
 
 configure :development do
-  ActiveRecord::Base.establish_connection(
-    :adapter => 'sqlite3',
-    :database =>'vanishes.db'
-  )
+  set :database, "sqlite3:vanishes.db"
   set :server, 'webrick'
 end
 
