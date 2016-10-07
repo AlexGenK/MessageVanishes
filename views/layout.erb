@@ -5,12 +5,16 @@
 		<script src="/vendor/aes.js"></script>
 		<script src="/vendor/app.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
 	</head>
 	<body>
-	    <%if @error && @error.length > 0 then %>
-        	<p><%= @error %></div>
-        	<% @error=nil %>
-      	<% end %>
-		<%= yield %>
+		<div class="container">
+		    <%if @error && @error.length > 0 then %>
+	        	<p><%= @error %></p>
+	        	<% @error=nil %>
+	      	<% end %>
+			<%= yield %>
+		</div>
  	</body>
 </html>

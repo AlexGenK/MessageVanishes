@@ -10,7 +10,7 @@ class Message < ActiveRecord::Base
 
   validates_presence_of :link, :method, :count
   validates_numericality_of :count, less_than: 10000, message: "is too big" 
-  validates_numericality_of :count, greater_than: 0, message: "is too small"
+  validates_numericality_of :count, greater_than_or_equal_to: 0, message: "is too small"
 
   after_initialize :set_default_values
 

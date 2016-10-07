@@ -1,9 +1,10 @@
 <h1>Show message</h1>
 <textarea id="aes_message" hidden="true"><%= @m.body %></textarea>
-<label for="password">Password</label><br>
-<input type="text" id="password"><br>
+<label for="password">Password</label>
+<input type="text" id="password" class="u-full-width">
 <br>
-<input type="button" value="Decrypt" onclick="decrypt_message('#aes_message', '#password', '#message')"><br>
 <br>
-<label for="message">Message</label><br>
-<textarea id="message" rows="5"></textarea><br>
+<input type="button" value="Decrypt" onclick="decrypt_message('#aes_message', '#password', '#message')">
+<br>
+<label for="message">Message</label>
+<textarea id="message" rows="5" class="u-full-width"></textarea><br>

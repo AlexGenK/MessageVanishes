@@ -1,13 +1,13 @@
 <h1>Enter your message</h1>
 
 <form action="/" method="POST">
-	<label for="message">Message</label><br>
-	<textarea id="message" rows="5"></textarea><br>
+	<label for="message">Message</label>
+	<textarea id="message" rows="5" class="u-full-width"></textarea>
 	<br>
-	<label for="password">Password</label><br>
-	<input type="text" id="password"><br>
+	<label for="password">Password</label>
+	<input type="text" id="password" class="u-full-width">
 	<br>
-	<label for="destroy">Destroy after</label><br>
+	<label for="destroy">Destroy after</label>
 	<input type="text" id="destroy" name="message[count]" value="<%= @m.count %>">
 	<select name="message[method]">
 		<option value="hours" <%= @m.method=="hours" ? "selected" : "" %>>hours</option>
