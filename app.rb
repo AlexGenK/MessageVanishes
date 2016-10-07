@@ -1,15 +1,18 @@
 require 'sinatra'
-require 'sinatra/reloader'
-require 'sinatra/activerecord'
 require "securerandom"
+require 'active_record'
+require "resolv-replace.rb"
 
 configure :development do
-  set :database, "sqlite3:vanishes.db"
+  ActiveRecord::Base.establish_connection(
+    :adapter => 'sqlite3',
+    :database =>'vanishes.db'
+  )
   set :server, 'webrick'
 end
 
 configure :production do
-  ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
+  ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'postgres://localhost/vanishes')
 end
 
 
