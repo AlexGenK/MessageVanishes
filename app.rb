@@ -9,8 +9,9 @@ configure :development do
 end
 
 configure :production do
-  set :database, "postgres:vanishes.db"
+  ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
 end
+
 
 class Message < ActiveRecord::Base
   validates_presence_of :link, :method, :count
