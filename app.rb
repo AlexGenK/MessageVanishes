@@ -31,7 +31,7 @@ end
 
 def destroy_with_info(m)
   m.destroy
-  @info="Message destroy."
+  @info="Message destroyed."
   erb :info
 end
 
