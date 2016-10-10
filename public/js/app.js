@@ -1,3 +1,5 @@
+// функции кодирования и декодирования сообщений на стороне клиента
+
 function encrypt_message(message, password, target) {
 	$(target).val(
 		CryptoJS.AES.encrypt($(message).val(),$(password).val())

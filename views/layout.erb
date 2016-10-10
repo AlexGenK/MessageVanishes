@@ -10,11 +10,13 @@
 	</head>
 	<body>
 		<div class="container">
+			<!-- обработка сообщений об ошибках -->
 		    <%if @error && @error.length > 0 then %>
 		    	<br>
 	        	<p><strong style="color: red"><%= @error %></strong></p>
 	        	<% @error=nil %>
 	      	<% end %>
+
 			<%= yield %>
 		</div>
  	</body>

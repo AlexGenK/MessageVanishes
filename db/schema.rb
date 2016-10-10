@@ -13,10 +13,10 @@
 ActiveRecord::Schema.define(version: 20161002204203) do
 
   create_table "messages", force: :cascade do |t|
-    t.text     "body"
-    t.text     "link"
-    t.text     "method"
-    t.integer  "count"
+    t.text     "body"           # текст сообщения
+    t.text     "link"           # ссылка на сообщение
+    t.text     "method"         # метод уничтожения сообщения (по количеству визитов/по истечении времени)
+    t.integer  "count"          # счетчик оставшихся визитов/количества часов от создания сообщения, до его уничтожения
     t.datetime "created_at"
     t.datetime "updated_at"
   end
