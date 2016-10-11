@@ -51,7 +51,6 @@ end
 
 post '/' do
   @m=Message.new(params[:message])
-  @m.link=generate_link(11)
   if params[:password].size<6
     @error="Password too small (min. 6 symbols)!"
     return erb :new
