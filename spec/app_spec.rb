@@ -32,6 +32,7 @@ describe 'The MessageVanishes App' do
 end
 
 describe Message, type: :model do
+  it { should validate_presence_of(:body) }
   it { should validate_presence_of(:link) }
   it { should validate_presence_of(:method) }
   it { should validate_presence_of(:count) }
