@@ -4,7 +4,7 @@ gem "sinatra"
 gem "activerecord"
 gem "sinatra-activerecord"
 
-group :development do
+group :development, :test do
   gem "sqlite3"
 end
 
@@ -13,7 +13,7 @@ group :production do
 end
 
 group :test do
-  gem "sqlite3"
   gem "rspec"
   gem "rack-test"
+  gem "shoulda-matchers"
 end

@@ -36,6 +36,8 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
+    shoulda-matchers (3.1.1)
+      activesupport (>= 4.0.0)
     sinatra (1.4.7)
       rack (~> 1.5)
       rack-protection (~> 1.4)
@@ -57,6 +59,7 @@ DEPENDENCIES
   pg
   rack-test
   rspec
+  shoulda-matchers
   sinatra
   sinatra-activerecord
   sqlite3
