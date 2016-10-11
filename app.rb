@@ -23,20 +23,24 @@ class Message < ActiveRecord::Base
 
   after_initialize :set_default_values
 
+  private
+
   def set_default_values
     self.count||=1
     self.method||="hours"
+    self.link||=generate_link(11)
   end
+
+  def generate_link(size)
+    SecureRandom.urlsafe_base64(size, false)
+  end
+
 end
 
 def destroy_with_info(m)
   m.destroy
   @info="Message destroyed."
   erb :info
-end
-
-def generate_link(size)
-  SecureRandom.urlsafe_base64(size, false)
 end
 
 get '/' do
