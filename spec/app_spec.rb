@@ -36,4 +36,11 @@ describe Message, type: :model do
   it { should validate_presence_of(:link) }
   it { should validate_presence_of(:method) }
   it { should validate_presence_of(:count) }
+
+  it "can create new message with default values" do
+    m=Message.new
+    expect(m.count).to eq 1
+    expect(m.method).to eq "hours"
+    expect(m.link.size).to eq 15
+  end
 end
