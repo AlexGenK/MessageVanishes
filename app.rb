@@ -3,6 +3,7 @@ require 'active_record'
 require 'sinatra/activerecord'
 
 configure :development do
+  require 'sinatra/reloader'
   set :database, "sqlite3:vanishes.db"
   set :server, 'webrick'
 end
