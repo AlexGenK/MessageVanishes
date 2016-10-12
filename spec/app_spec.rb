@@ -29,13 +29,22 @@ describe 'The MessageVanishes App' do
     expect(last_response).to be_ok
     expect(last_response.body).to include('Enter your message')
   end
+
+  it "show info if message do not found" do
+    get '/message/aaaaaaaaaaaaaaa'
+    expect(last_response).to be_ok
+    expect(last_response.body).to include('Message not fount')
+  end
+
 end
 
 describe Message, type: :model do
-  it { should validate_presence_of(:body) }
-  it { should validate_presence_of(:link) }
-  it { should validate_presence_of(:method) }
-  it { should validate_presence_of(:count) }
+  describe "validation" do
+    it { should validate_presence_of(:body) }
+    it { should validate_presence_of(:link) }
+    it { should validate_presence_of(:method) }
+    it { should validate_presence_of(:count) }
+  end
 
   it "can create new message with default values" do
     m=Message.new
