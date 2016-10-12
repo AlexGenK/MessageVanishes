@@ -30,10 +30,19 @@ describe 'The MessageVanishes App' do
     expect(last_response.body).to include('Enter your message')
   end
 
-  it "show info if message do not found" do
+  it "show info if the message is not found" do
     get '/message/aaaaaaaaaaaaaaa'
     expect(last_response).to be_ok
-    expect(last_response.body).to include('Message not fount')
+    expect(last_response.body).to include('Message not found')
+  end
+
+  it "show message dialog if the message is found" do
+    m=Message.new(:body=>"blablablla")
+    m.save!
+    get "/message/#{m.link}"
+    expect(last_response).to be_ok
+    expect(last_response.body).to include('Show message')
+    Message.delete_all
   end
 
 end
