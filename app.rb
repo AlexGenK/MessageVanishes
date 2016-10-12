@@ -81,7 +81,7 @@ get '/message/:link' do
         erb :show
       end
     else
-        if Time.now.utc > @m.created_at+360*@m.count
+        if Time.now.utc > @m.created_at+3600*@m.count
           destroy_with_info(@m)
         else
           erb :show
