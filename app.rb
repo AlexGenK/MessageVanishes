@@ -33,7 +33,10 @@ class Message < ActiveRecord::Base
   end
 
   def generate_link(size)
-    SecureRandom.urlsafe_base64(size, false)
+    begin
+      l=SecureRandom.urlsafe_base64(size, false)
+    end while Message.where(link: l).first
+    return l
   end
 
 end
