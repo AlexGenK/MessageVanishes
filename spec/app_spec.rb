@@ -30,6 +30,12 @@ describe 'The MessageVanishes App' do
     expect(last_response.body).to include('Enter your message')
   end
 
+  it "can create the message" do
+    post '/', "message[count]"=>1, "message[method]"=>"visits", "message[body]"=>"U2FsdGVkX1+FuqdXOIS864o1ncw5m3ut7p+wU7LpoQQ=", "password"=>"123456"
+    expect(last_response).to be_ok
+    expect(last_response.body).to include('Message already added')
+  end
+
   it "show info if the message is not found" do
     get '/message/aaaaaaaaaaaaaaa'
     expect(last_response).to be_ok
