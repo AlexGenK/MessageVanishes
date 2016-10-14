@@ -17,7 +17,7 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-describe 'The MessageVanishes App' do
+describe 'The MessageVanishes appication' do
   include Rack::Test::Methods
 
   def app
@@ -49,11 +49,21 @@ describe 'The MessageVanishes App' do
   end
 
   it "show the message dialog if the message is found" do
-    m=Message.new(:body=>"blablablla")
+    m=Message.new(:body=>"U2FsdGVkX1+FuqdXOIS864o1ncw5m3ut7p+wU7LpoQQ=")
     m.save!
     get "/message/#{m.link}"
     expect(last_response).to be_ok
     expect(last_response.body).to include('Show message')
+    Message.delete_all
+  end
+
+  it "can destroy message after a certain number of visits" do
+    m=Message.new(:body=>"U2FsdGVkX1+FuqdXOIS864o1ncw5m3ut7p+wU7LpoQQ=", :count=>5, :method=>"visits")
+    m.save!
+    5.times { get "/message/#{m.link}" }
+    get "/message/#{m.link}"
+    expect(last_response).to be_ok
+    expect(last_response.body).to include('Message destroyed.')
     Message.delete_all
   end
 
