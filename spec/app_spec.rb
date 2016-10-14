@@ -4,6 +4,7 @@ require './app.rb'
 require 'rspec'
 require 'rack/test'
 require 'shoulda/matchers'
+require 'timecop'
 
 RSpec.configure do |config|
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
@@ -64,6 +65,17 @@ describe 'The MessageVanishes appication' do
     get "/message/#{m.link}"
     expect(last_response).to be_ok
     expect(last_response.body).to include('Message destroyed.')
+    Message.delete_all
+  end
+
+  it "can destroy message after a certain number of hours" do
+    m=Message.new(:body=>"U2FsdGVkX1+FuqdXOIS864o1ncw5m3ut7p+wU7LpoQQ=", :count=>3, :method=>"hours")
+    m.save!
+    Timecop.travel(Time.now + 4.hours) do
+      get "/message/#{m.link}"
+      expect(last_response).to be_ok
+      expect(last_response.body).to include('Message destroyed.')  
+    end
     Message.delete_all
   end
 
