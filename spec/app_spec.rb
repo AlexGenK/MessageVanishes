@@ -65,9 +65,11 @@ describe Message, type: :model do
     it { should validate_presence_of(:link) }
     it { should validate_presence_of(:method) }
     it { should validate_presence_of(:count) }
+    it { should validate_numericality_of(:count).is_less_than(10000).with_message("in field \"Destroy after\" is too big (max. 9999)") }
+    it { should validate_numericality_of(:count).is_greater_than_or_equal_to(0).with_message("in field \"Destroy after\" is too small (min. 0)") }
   end
 
-  it "can create new message with default values" do
+  it "can create the new message with default values" do
     m=Message.new
     expect(m.count).to eq 1
     expect(m.method).to eq "hours"
