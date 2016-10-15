@@ -13,8 +13,11 @@
 		<option value="hours" <%= @m.method=="hours" ? "selected" : "" %>>hours</option>
 		<option value="visits" <%= @m.method=="visits" ? "selected" : "" %>>visits</option>
 	</select><br>
+	<!-- скрытое поле, в котором передается зашифрованное тело сообщения -->
 	<textarea id="aes_message" name="message[body]" hidden="true"></textarea>
+	<!-- скрытое поле, в котором передаютя ошибки, возникшие в процессе шифрования тела сообщения -->
 	<input type="text" id="error_field" name="error_field" hidden="true">
 	<br>
+	<!-- при отправке формы запускается функция шифрования сообщения -->
 	<input type="submit" class="button-primary" value="Submit" onclick="encrypt_message('#message', '#password', '#aes_message', '#error_field')">
 </form>

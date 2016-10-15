@@ -1,5 +1,5 @@
 // функции кодирования и декодирования сообщений на стороне клиента.
-// на сервер значения не передаются, по этому здесь же и проиходит обработка ошбок.
+// на сервер значения не передаются, здесь же проиcходит обработка ошбок.
 
 function encrypt_message(message, password, target, error_field) {
 	if ($(password).val().length<6) $(error_field).val("Password too small (min. 6 symbols)!");

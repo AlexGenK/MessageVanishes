@@ -6,6 +6,7 @@ require 'rack/test'
 require 'shoulda/matchers'
 require 'timecop'
 
+# -------------------------настройка---------------------------------------
 RSpec.configure do |config|
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
@@ -18,6 +19,7 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
+# ----------------------тесты приложения------------------------------------
 describe 'The MessageVanishes appication' do
   include Rack::Test::Methods
 
@@ -81,6 +83,7 @@ describe 'The MessageVanishes appication' do
 
 end
 
+# ---------------------------------------------тесты модели---------------------------------------------
 describe Message, type: :model do
   describe "validation" do
     it { should validate_presence_of(:body) }

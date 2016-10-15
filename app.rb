@@ -17,6 +17,7 @@ configure :production do
 end
 
 
+# ----------------------------------------модель - сообщение-----------------------------------
 class Message < ActiveRecord::Base
   validates_presence_of :body, :link, :method, :count
   validates_numericality_of :count, less_than: 10000, message: "in field \"Destroy after\" is too big (max. 9999)" 
@@ -26,12 +27,14 @@ class Message < ActiveRecord::Base
 
   private
 
+  # установка значений по умолчаию
   def set_default_values
     self.count||=1
     self.method||="hours"
     self.link||=generate_link(11)
   end
 
+  # генерация уникальной ссылки 
   def generate_link(size)
     begin
       l=SecureRandom.urlsafe_base64(size, false)
@@ -41,17 +44,21 @@ class Message < ActiveRecord::Base
 
 end
 
+# уничтожения сообщения с выводом информации
 def destroy_with_info(m)
   m.destroy
   @info="Message destroyed."
   erb :info
 end
 
+# ---------------------------------маршруты---------------------------------------------------
+# создание сообщения
 get '/' do
   @m=Message.new
   erb :new
 end
 
+# запись сообщения в БД
 post '/' do
   @m=Message.new(params[:message])
   if params[:error_field] && params[:error_field].length > 0
@@ -66,6 +73,7 @@ post '/' do
   end
 end
 
+# вывод сообщения и, если требуется, его удаление
 get '/message/:link' do
   @m=Message.where(link: params[:link]).first
   unless @m
