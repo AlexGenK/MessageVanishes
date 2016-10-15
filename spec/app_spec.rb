@@ -37,8 +37,8 @@ describe 'The MessageVanishes appication' do
     expect(last_response.body).to include('Message already added')
   end
 
-  it "show the mesage if the password too small" do
-    post '/', "message[count]"=>1, "message[method]"=>"visits", "message[body]"=>"U2FsdGVkX1+FuqdXOIS864o1ncw5m3ut7p+wU7LpoQQ=", "password"=>"12345"
+  it "show the alert if the password too small" do
+    post '/', "message[count]"=>1, "message[method]"=>"visits", "message[body]"=>"U2FsdGVkX1+FuqdXOIS864o1ncw5m3ut7p+wU7LpoQQ=", "password"=>"12345", "error_field"=>"Password too small (min. 6 symbols)!"
     expect(last_response).to be_ok
     expect(last_response.body).to include('Password too small (min. 6 symbols)!')
   end

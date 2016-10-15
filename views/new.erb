@@ -5,7 +5,7 @@
 	<textarea id="message" class="u-full-width"></textarea>
 	<br>
 	<label for="password">Password</label>
-	<input type="text" id="password" name="password" class="u-full-width">
+	<input type="text" id="password" class="u-full-width">
 	<br>
 	<label for="destroy">Destroy after</label>
 	<input type="text" id="destroy" name="message[count]" value="<%= @m.count %>">
@@ -14,6 +14,7 @@
 		<option value="visits" <%= @m.method=="visits" ? "selected" : "" %>>visits</option>
 	</select><br>
 	<textarea id="aes_message" name="message[body]" hidden="true"></textarea>
+	<input type="text" id="error_field" name="error_field" hidden="true">
 	<br>
-	<input type="submit" class="button-primary" value="Submit" onclick="encrypt_message('#message', '#password', '#aes_message')">
+	<input type="submit" class="button-primary" value="Submit" onclick="encrypt_message('#message', '#password', '#aes_message', '#error_field')">
 </form>

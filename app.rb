@@ -54,8 +54,8 @@ end
 
 post '/' do
   @m=Message.new(params[:message])
-  if params[:password].size<6
-    @error="Password too small (min. 6 symbols)!"
+  if params[:error_field] && params[:error_field].length > 0
+    @error=params[:error_field]
     return erb :new
   end
   if @m.save
