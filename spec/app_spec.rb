@@ -81,6 +81,8 @@ describe 'The MessageVanishes appication' do
     Message.delete_all
   end
 
+
+
 end
 
 # ---------------------------------------------тесты модели---------------------------------------------
@@ -99,5 +101,22 @@ describe Message, type: :model do
     expect(m.count).to eq 1
     expect(m.method).to eq "hours"
     expect(m.link.size).to eq 15
+  end
+
+  it "can decrement count of visits" do
+    m=Message.new
+    m.decrement_count!
+    expect(m.count).to eq 1
+    m.method="visits"
+    m.decrement_count!
+    expect(m.count).to eq 0
+  end
+end
+
+# ---------------------------------------------тест генератора ссылок------------------------------------
+describe "#UrlSafeLink" do
+  it "can generate link" do
+    l=UrlSafeLink.new(11, ['qqqqqqqqqqqqqqq', 'aaaaaaaaaaaaaaa', 'zzzzzzzzzzzzzzz']).link
+    expect(l.size).to eq 15
   end
 end

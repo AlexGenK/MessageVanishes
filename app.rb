@@ -16,7 +16,6 @@ configure :production do
   ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'postgres://localhost/vanishes')
 end
 
-
 # ----------------------------------------модель - сообщение-----------------------------------
 class Message < ActiveRecord::Base
   validates_presence_of :body, :link, :method, :count
@@ -25,30 +24,41 @@ class Message < ActiveRecord::Base
 
   after_initialize :set_default_values
 
-  private
-
   # установка значений по умолчаию
-  def set_default_values
+  def set_default_values(link_generator: UrlSafeLink.new(11, Message.pluck(:link)).link)
     self.count||=1
     self.method||="hours"
-    self.link||=generate_link(11)
+    self.link||=link_generator
   end
 
-  # генерация уникальной ссылки 
-  def generate_link(size)
-    begin
-      l=SecureRandom.urlsafe_base64(size, false)
-    end while Message.where(link: l).first
-    return l
+  # метод удаляющий записи по условию
+  def destroyer?
+    if ((self.method=="visits") && (self.count==0))||((self.method=="hours") && (Time.now.utc > self.created_at+3600*self.count))
+      destroy
+      return true
+    end
+    return false
+  end
+
+  # метод, уменьшающий счетчик посещений
+  def decrement_count!
+    self.count-=1 if self.method=="visits"
+    save
   end
 
 end
 
-# уничтожения сообщения с выводом информации
-def destroy_with_info(m)
-  m.destroy
-  @info="Message destroyed."
-  erb :info
+# класс - уникальная ссылка
+class UrlSafeLink
+  attr_reader :link
+
+  # передается размер ссылки и список уже существующих ссылок
+  def initialize size, links_list
+    begin
+      @link=SecureRandom.urlsafe_base64(size, false)
+    end while links_list.include? @link
+  end
+
 end
 
 # ---------------------------------маршруты---------------------------------------------------
@@ -79,21 +89,13 @@ get '/message/:link' do
   unless @m
     @info="Message not found."
     erb :info
-  else 
-    if @m.method=="visits"
-      if @m.count == 0
-        destroy_with_info(@m)
-      else
-        @m.count-=1
-        @m.save
-        erb :show
-      end
+  else
+    if @m.destroyer?  
+      @info="Message destroyed."
+      erb :info
     else
-        if Time.now.utc > @m.created_at+3600*@m.count
-          destroy_with_info(@m)
-        else
-          erb :show
-        end
+      @m.decrement_count!
+      erb :show
     end
   end
 end
