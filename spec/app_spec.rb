@@ -116,7 +116,7 @@ end
 # ---------------------------------------------тест генератора ссылок------------------------------------
 describe "#UrlSafeLink" do
   it "can generate link" do
-    l=UrlSafeLink.new(11, ['qqqqqqqqqqqqqqq', 'aaaaaaaaaaaaaaa', 'zzzzzzzzzzzzzzz']).link
+    l=UrlSafeLink.new(11).link
     expect(l.size).to eq 15
   end
 end
